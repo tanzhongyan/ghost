@@ -1,0 +1,17 @@
+# Yorkshire-Crypto-Exchange Routing Configuration
+# Reverse proxy crypto.{$DOMAIN} to Yorkshire website container
+
+crypto.{$DOMAIN} {
+	import snippets/Logging
+
+	# Reverse proxy to Yorkshire website
+	handle {
+		reverse_proxy website:3000
+	}
+
+	# Enable gzip compression
+	encode gzip
+
+	# Add security headers
+	import snippets/SecurityHeaders
+}
