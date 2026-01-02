@@ -1,0 +1,2 @@
+*.sh text eol=lf
+tinybird/tb-wrapper text eol=lf
