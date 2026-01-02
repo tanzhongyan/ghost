@@ -59,6 +59,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# Environment setup script (contains sensitive info)
+setup-env.sh
+
 # IDE
 .idea/*
 *.iml
