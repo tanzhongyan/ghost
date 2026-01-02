@@ -1,10 +1,28 @@
 # Singheatlh Routing Configuration
-# Reverse proxy med.{$DOMAIN} to Singheatlh frontend container
+# Reverse proxy med.{$DOMAIN} to Singheatlh containers
 
 med.{$DOMAIN} {
 	import snippets/Logging
 
-	# Reverse proxy to Singheatlh frontend
+	# Route backend API requests to Spring Boot
+	handle /api/* {
+		reverse_proxy backend:8080
+	}
+
+	# Route Supabase auth and API requests to Kong Gateway
+	handle /auth/* {
+		reverse_proxy kong:8000
+	}
+
+	handle /rest/* {
+		reverse_proxy kong:8000
+	}
+
+	handle /storage/* {
+		reverse_proxy kong:8000
+	}
+
+	# Route all other requests to React frontend
 	handle {
 		reverse_proxy frontend:80
 	}

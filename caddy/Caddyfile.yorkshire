@@ -1,10 +1,15 @@
 # Yorkshire-Crypto-Exchange Routing Configuration
-# Reverse proxy crypto.{$DOMAIN} to Yorkshire website container
+# Reverse proxy crypto.{$DOMAIN} to Yorkshire containers
 
 crypto.{$DOMAIN} {
 	import snippets/Logging
 
-	# Reverse proxy to Yorkshire website
+	# Route API requests through Kong API Gateway
+	handle /api/* {
+		reverse_proxy kong:8000
+	}
+
+	# Route all other requests to Next.js website
 	handle {
 		reverse_proxy website:3000
 	}
